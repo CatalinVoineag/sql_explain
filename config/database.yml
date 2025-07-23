@@ -1,0 +1,29 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: catalin
+  password: root
+
+development:
+  <<: *default
+  database: sql_explain_development
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: sql_explain_production
+    username: sql_explain
+    password: <%= ENV["SQL_EXPLAIN_DATABASE_PASSWORD"] %>
+  cache:
+    <<: *primary_production
+    database: sql_explain_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: sql_explain_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: sql_explain_production_cable
+    migrations_paths: db/cable_migrate

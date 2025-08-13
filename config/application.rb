@@ -1,4 +1,5 @@
 require_relative "boot"
+require_relative "sql_collection_middleware"
 
 require "rails/all"
 
@@ -15,6 +16,9 @@ module SqlExplain
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+
+    Rails.application.config.middleware.insert_before Rails::Rack::Logger, SqlCollectorMiddleware
+
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -1,3 +1,5 @@
+<%= turbo_stream_from 'content' %> 
+
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Users" %>
@@ -14,3 +16,12 @@
 </div>
 
 <%= link_to "New user", new_user_path %>
+
+<h1 id="what"></h1>
+
+<%= link_to 'explain', explain_path(1), target: '_blank' %>
+
+<%= @queries.each do |key, value| %> 
+  <h2>Request id <%= key %></h2>
+  <h2>SQL <%= value %></h2>
+<% end %>

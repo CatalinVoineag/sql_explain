@@ -1,5 +1,4 @@
 require "active_support/core_ext/integer/time"
-require Rails.root.join('app/lib/custom_log_formatter')
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -43,13 +42,6 @@ Rails.application.configure do
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
-
-  config.rails_semantic_logger.format = CustomLogFormatter.new
-  config.semantic_logger.add_appender(
-    io: $stdout,
-    level: config.log_level,
-    formatter: CustomLogFormatter.new
-  )
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

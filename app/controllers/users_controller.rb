@@ -4,14 +4,13 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    @fred_users = User.where(name: 'Fred')
 
     file = Rails.root.join("log", "sql_explain.log")
-    @queries = {}
     file.each_line do |line|
       result = line.split(' => ')
-      key = result.first
       value = result.last
-      @queries[key] = value
+      @queries = JSON.parse(value)
     end
   end
 

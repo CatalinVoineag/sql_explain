@@ -3,9 +3,10 @@ class SqlCollectorMiddleware
 
   def call(env)
     collector = ActiveSupport::Notifications.subscribe("sql.active_record") do |*, payload|
-      next if payload[:name] == "SCHEMA"
+      next if payload[:name] == "SCHEMA" || payload[:name] == "SQL_EXPLAIN_GEM"
+
       Thread.current[:sql_log] ||= []
-      Thread.current[:sql_log] << { sql: payload[:sql], name: payload[:name] }
+      Thread.current[:sql_log] << { sql: payload[:sql] }
     end
 
     status, headers, response = @app.call(env)
@@ -17,7 +18,7 @@ class SqlCollectorMiddleware
       file = Rails.root.join("log", "sql_explain.log")
 
       File.open(file, "a") do |f|
-        f.write "#{request_id} => #{logs.map { |log| log[:sql] }}"
+        f.puts "#{request_id} => #{logs.map { |log| log[:sql] }}"
       end
     end
 

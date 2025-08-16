@@ -15,13 +15,27 @@
   <% end %>
 </div>
 
+
+<h1>Fred Users</h1>
+
+<div id="users">
+  <% @fred_users.each do |user| %>
+    <%= render user %>
+    <p>
+      <%= link_to "Show this user", user %>
+    </p>
+  <% end %>
+</div>
+
 <%= link_to "New user", new_user_path %>
 
 <h1 id="what"></h1>
 
-<%= link_to 'explain', explain_path(1), target: '_blank' %>
-
-<%= @queries.each do |key, value| %> 
-  <h2>Request id <%= key %></h2>
-  <h2>SQL <%= value %></h2>
-<% end %>
+<ul>
+  <% @queries.each do |query| %> 
+    <li>
+      <h2>SQL <%= query %></h2>
+      <%= link_to 'explain', explains_path(query:), target: '_blank' %>
+    </li>
+  <% end %>
+</ul>

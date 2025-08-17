@@ -15,10 +15,13 @@ And then execute:
 ```bash
 $ bundle
 ```
-
 Or install it yourself as:
 ```bash
 $ gem install sql_explain
+```
+You will also need to mount the engine. It needs an endpoint to hit, to explain the query
+```ruby
+mount SqlExplain::Engine, at: "/query"
 ```
 
 ## Contributing

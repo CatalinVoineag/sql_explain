@@ -3,6 +3,7 @@ module SqlExplain
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::TextHelper
     include ActionView::Context
+    include ActionView::Helpers::UrlHelper
 
     def initialize(app); @app = app; end
 
@@ -40,7 +41,14 @@ module SqlExplain
 
       content = content_tag(:ul) do
         logs.each do |log|
-          concat content_tag(:li, log[:sql])
+          concat content_tag(
+            :li,
+            link_to(
+              log[:sql],
+              SqlExplain::Engine.routes.url_helpers.query_path(query: log[:sql]),
+              target: "_blank",
+            ),
+          )
         end
       end.html_safe
 

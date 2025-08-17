@@ -13,4 +13,3 @@ gem "propshaft"
 gem "rubocop-rails-omakase", require: false
 
 gem "byebug"
-gem "ferrum"

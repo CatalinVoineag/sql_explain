@@ -1,5 +1,7 @@
 module SqlExplain
   class QueriesController < ApplicationController
+    before_action :set_query
+
     def show
       page = Ferrum::Browser.new(headless: false, js_errors: true)
       page.goto("https://explain.dalibo.com/")
@@ -26,7 +28,7 @@ module SqlExplain
 
   private
 
-    def query
+    def set_query
       @query ||= params.require(:query)
     end
 

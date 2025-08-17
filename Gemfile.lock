@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     sql_explain (0.1.0)
+      ferrum
       rails (>= 8.0.2.1)
 
 GEM
@@ -252,7 +253,6 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  ferrum
   propshaft
   puma
   rubocop-rails-omakase
